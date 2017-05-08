@@ -4,7 +4,10 @@ Maze Solver
 # Requires
 Java SDK+JRE
 
-# Usage
+# Quick Usage
+1. Navigate to `Maze-Solver/quickstart/`
+2. Double click the scenario you wish to see
+# Dev Usage
 1. Navigate to `Maze-Solver\src`
 2. Compile with `javac MazeSolver.java`
 3. java MazeSolver <path_to_maze_file>
