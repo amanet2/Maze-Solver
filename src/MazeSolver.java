@@ -332,10 +332,6 @@ public class MazeSolver
 
 		JButton[][] buttons = new JButton[p.xsize][p.ysize];	//buttons for gui
 
-		frame = new JFrame("Solver Program");
-
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 		frame.setLayout(new GridLayout(p.xsize,p.ysize));	//grid layout
 
 		for(int i = 0; i < p.xsize; i++)	//add all buttons
@@ -492,6 +488,12 @@ public class MazeSolver
 
 	}
 
+	public MazeSolver()
+	{
+		frame = new JFrame("Solver Program");
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+
 	public static void main(String[] args) {
 		MazeSolver solver = new MazeSolver();
 
@@ -499,6 +501,6 @@ public class MazeSolver
 			solver.startThings(args[0]);
 			solver.frame.dispatchEvent(new WindowEvent(solver.frame, WindowEvent.WINDOW_CLOSING));
 		}else
-		    System.err.println("INCORRECT NUMBER OF ARGUMENTS! USAGE: MazeSolver <mazefile>.txt");
+		    JOptionPane.showMessageDialog(solver.frame,"INCORRECT NUMBER OF ARGUMENTS! USAGE: MazeSolver <mazefile>.txt");
         }
 }
