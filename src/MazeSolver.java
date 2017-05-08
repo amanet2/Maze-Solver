@@ -2,6 +2,7 @@ import java.awt.event.WindowEvent;
 import java.util.*;
 import java.io.*;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 public class MazeSolver
@@ -102,7 +103,7 @@ public class MazeSolver
 	public class puzzle
 	{
 		private int xsize;
-  	        private int ysize;
+		private int ysize;
   		private int xstart;
 		private int ystart;
 		private int xend;
@@ -321,8 +322,8 @@ public class MazeSolver
 	}
 
 	private void dfsSolve(puzzle p) throws Exception
-
 	{
+		final long startTime = System.currentTimeMillis();
 		puzzleStack pS = new puzzleStack();	//create stack
 
 		pS.push(new puzzleNode(p.xstart-1,p.ystart-1));
@@ -362,14 +363,16 @@ public class MazeSolver
 
 		while(pS.head != null && endFound == 0)
 		{
-			Thread.sleep(100);
+			Thread.sleep(40);
 			puzzleNode n = pS.getTop();
 
 			//check for win by looking at startx/y and endx/y
 			if(n.xCoord == p.xend-1 && n.yCoord == p.yend-1)
 			{
+				long solvetime = System.currentTimeMillis()-startTime;
+				double solvetime_seconds = (double) (solvetime/1000.0);
 				p.printPuzzle();
-				System.out.println("\nSOLUTION FOUND!!!\n====\n");
+				JOptionPane.showMessageDialog(frame,"\nSOLUTION FOUND in "+String.valueOf(solvetime_seconds)+"ms !!!");
 				puzzleNode enn = pS.head;
 				while(enn != null)
 				{
@@ -484,7 +487,7 @@ public class MazeSolver
 		{
 			p.printPuzzle();
 			//displayWinWindow(p,pS,0);
-			System.out.println("\nNO SOLUTION FOUND!!!\n");
+			JOptionPane.showMessageDialog(frame,"\nNO SOLUTION FOUND!!!\n");
 		}
 
 	}
@@ -494,7 +497,7 @@ public class MazeSolver
 
 		if (args.length == 1){
 			solver.startThings(args[0]);
-		solver.frame.dispatchEvent(new WindowEvent(solver.frame, WindowEvent.WINDOW_CLOSING));
+			solver.frame.dispatchEvent(new WindowEvent(solver.frame, WindowEvent.WINDOW_CLOSING));
 		}else
 		    System.err.println("INCORRECT NUMBER OF ARGUMENTS! USAGE: MazeSolver <mazefile>.txt");
         }
